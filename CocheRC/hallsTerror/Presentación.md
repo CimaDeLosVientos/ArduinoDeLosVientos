@@ -1,34 +1,70 @@
-/*
-  Para comunicar nuestro coche radiocontrol usaremos una liberia que nos permitira definir
- 2 pines como entrada y salida para el modulo bluetooth que no seran los definidos por defecto
- (0 y 1), haciendo esto podremos usar la consola del ordenador para facilitar las pruebas.
- */
+#Lenguaje
+
+Bueno, lo primero es saber si sabeís programar PREGUNTAS SI ALGUIEN SABER PROGRAMAR, bueno, la charla esta pensada como que noteneis ni idea. Como curiosidad, Arduino usa un lenguaje muy parecido a C, C++, lo bueno es que aunque no tengais soltura programando, hacer pequeñas cosas es relativamente sencillo y además hay mucho código al alcance, por lo que con unas nociones básicas podeis hacer bastante.
+
+##Entorno
+
+Para explicaros esto, lo mejor es que lo vayamos viendo juntos ABRES EL IDE, esto es el ide de arduino, EXPLICA QUE ES IDE, En mi opinión, como editor de texto deja bastante que desear, pero nos permitirá compilar y cargar el programa rápidamente. Podemos abrir el proyecto y tambien unos cuantos ejemplos que nos servirán tanto para aprender como para copiar vilmente.
+
+##Funciones
+
+Bueno, llegados a este punto quiero preguntaros: ¿Que es programar? ¿Y un programa?
+
+Podemos resumir que un programa es una serie de instrucciones que el programador deja indicadas al procesador. En ellas le dice que debe hacer y como.
+
+Vamos a usar la metafora de los gremlins, en el interior de la placa hay un montón de criaturitas que hacen que todo funcione, y yo, como programador, les doi instrucciones.
+
+Vamos a usar los ejemplos para empezar, INSTRUCCION UP/DOWN Los pines del arduino, les digo enciende o no enciende. pin analogico, 
+serial y lecturas de sensores.
+
+
+#Software coche
+
+## cosas que poner
+~~~
 #include <SoftwareSerial.h>
+
 SoftwareSerial BT1(4,2); // RX, TX recorder que se cruzan
 
-// Vamos a nombrar los pines que vamos a usar.
+char str[2],i; // Necesitaremos este par de variables para leer la señal bluetooht
+~~~
+
+## Definir pines
+
+![](../img/4.png)
+
+
+~~~
 #define leftMotorF 12
 #define leftMotorB 13
 #define leftMotorSpeed 11
 #define rightMotorF 5
 #define rightMotorB 6
 #define rightMotorSpeed 10
+~~~
 
-// Definimos las variables asociadas al movimiento del coche y una funcion para cambiarlas rapidamente
+
+## Las variables
+
+~~~
 int velocidadR; // Las velocidades de cada rueda
 int velocidadI;
 int estado;	// El estado define si el coche esta detenido (0), en marcha (1) o marcha atras (-1)
 int marcha; // La marcha es un modificador (multiplicador) de la velocidad.
-char str[2],i; // Necesitaremos este par de variables para leer la señal bluetooht
+~~~
 
+~~~
 void setValues(int sv_velocidadI, int sv_velocidadR, int sv_estado, int sv_marcha){
   velocidadI = sv_velocidadI;
   velocidadR = sv_velocidadR;
   estado = sv_estado;
   marcha = sv_marcha;
 }
+~~~
 
-// the setup routine runs once when you press reset:
+## setup
+
+~~~
 void setup() {                
   // initialize the digital pin as an output.
   pinMode(leftMotorF, OUTPUT);
@@ -41,17 +77,11 @@ void setup() {
   Serial.println("Enter AT commands:");
   BT1.begin(9600);
 }
+~~~
 
-/*
-  El coche tendra dos estados, "En marcha" y "Parado". Tendremos 2 acciones mediante la aplicacion,
-  "Arrancar" y "Detener".
-  De esta forma una vez el coche este en marcha podremos cambiar las velocidades o hacer que gire
-  mientras sigue en marcha.
- */
+## Arrancar
 
-/*
-  Al arrancar el coche se pondra en movimiento. El movimiento sera hacia el frente en primera marcha.
- */
+~~~
 void arrancar(){ //Quiza deberia solo permitirse con el coche detenido
   if(estado == 0){
     Serial.println("Arrancando!");
@@ -70,6 +100,11 @@ void arrancar(){ //Quiza deberia solo permitirse con el coche detenido
   Serial.println(estado);
   Serial.println(marcha);
 }
+~~~
+
+## Detener
+
+~~~
 /*
   El coche se detiene, poniendo las variables a 0
  */
@@ -77,6 +112,13 @@ void detener(){
   Serial.println("Parando!");
   setValues(0, 0, 0, 0);
 }
+
+ ~~~
+
+## Girar a la Izquierda
+
+~~~
+
 /*
   Los giros se realizan disminuyendo la velocidad de una de las ruedas, la cantidad se deberia determinar
  en la fase de pruebas (la mitad actualmente).
@@ -91,6 +133,13 @@ void girarI(){
     setValues(25*marcha, 51*marcha, estado, marcha);
   }  
 }
+
+~~~
+
+## Girar a la Derecha
+
+~~~
+
 void girarD(){
   if(estado == -1){
     Serial.println("Girando a la derecha marcha atras!");
@@ -102,6 +151,11 @@ void girarD(){
   }  
 }
 
+~~~
+
+## Marcha Atrás
+
+~~~
 /*
   La marcha atras solo tiene la peculariedad de cambiar el estado, el cual se tiene en cuenta a la hora de escribir
  en los pines la señal. Ademas se empieza la marcha atras en la marcha minima.
@@ -118,6 +172,13 @@ void marchaAtras(){
     setValues(120, 120, -1, 1);
   }  
 }
+
+~~~
+
+## Disminuir Marcha
+
+~~~
+
 /*
   Los aumentos y disminuciones de marcha se limitan a modificar controladamente el valor de la variable "marcha".
  */
@@ -131,6 +192,13 @@ void disminuirMarcha(){
     Serial.println("Marcha minima");
   } 	
 }
+
+~~~
+
+## Aumentar Marcha
+
+~~~
+
 void aumentarMarcha(){
   if((marcha < 5) && (estado == 1)){
     Serial.println("Aumentando marcha!");
@@ -142,92 +210,23 @@ void aumentarMarcha(){
   } 
 }
 
-/*
-  El coche al estar en marcha avanzara hacia delante a velocidad constante, y solo mientras sean
-  accionados los botones del RC para girar, el coche girara. Por lo que al no ser pulsado ningun 
-  boton, el coche avanzara hacia delante, se
- mantendra detenido o continuara dirigiendose hacia atras en linea recta en funcion del estado.
- */
- /*
-void continuar(){
-  if (marcha == -1){ // MarchaAtras
-    setValues(51*marcha, 51*marcha, -1, marcha);
-    Serial.println("Continuando MA");
-  }
-  else if (marcha == 0) { // Parado
-    setValues(0, 0, 0, 0);
-    Serial.println("Continuando Parado");
-  }
-  else{ // Avanzando
-    setValues(51*marcha, 51*marcha, 1, marcha);
-        Serial.println("Continuando Avanzando");
-  }
-}
-*/
+~~~
 
-char GetLine(){
-  char s;
-  if (Serial.available()){
-    char s = Serial.read();
-    return s;
-  }
-}
+## control (I)
 
+![](../img/control1.png)
 
-// the loop routine runs over and over again forever:
-void loop() {
-  if (BT1.available()){ //Obtenemos la funcion que está ejecutando
-      
-    char ch=BT1.read();
-    str[i++]=ch;
-    Serial.write(ch);
-    if(str[i-1] == '0'){ // Arrancar
-      Serial.write(BT1.read());
-      arrancar();
+## control (II)
 
-    }
-    else if(str[i-1] == '1'){ // Detener
-      Serial.write(BT1.read());
-      detener();
+![](../img/control2.png)
 
-    }
-    else if(str[i-1] == '2'){ // Girar izquierda
-      Serial.write(BT1.read());
-      girarI();
+## Lectura
 
-    }
-    else if(str[i-1] == '3'){ // Girar derecha
-      Serial.write(BT1.read());
-      girarD();
+Hazte un favor y ve a la aplicación...
 
-    }
-    else if(str[i-1] == '4'){ // Disminuir marcha
-      Serial.write(BT1.read());
-      disminuirMarcha();
+## Escribir
 
-    }
-    else if(str[i-1] == '5'){ // Aumentar marcha
-      Serial.write(BT1.read());
-      aumentarMarcha();
-
-    }
-    else if(str[i-1] == '6'){ // Marcha atras
-      Serial.write(BT1.read());
-      marchaAtras();
-      i=0;
-
-    }
-    
-   
-  }
-  /*  
-  else{ //Si no se realiza ninguna funcion, sigue su curso normal (seguir avanzando hacia delante, atras
-  // o mantenerse detenido)
-    continuar();
-  }
-  */
-
-  // Por ultimo, se le envia al coche la señal correspondiente para su movimiento.
+~~~
   if (estado == -1){ // MarchaAtras
     digitalWrite(leftMotorF, LOW);
     digitalWrite(leftMotorB, HIGH);
@@ -236,12 +235,6 @@ void loop() {
     digitalWrite(rightMotorB, HIGH);
     analogWrite(rightMotorSpeed, velocidadR);
   }
-  //  else if (marcha == 0) { // Parado
-  //  	analogWrite(leftMotorF, 0);
-  //	analogWrite(leftMotorB, 0);
-  //	analogWrite(rightMotorF, 0);
-  //	analogWrite(rightMotorB, 0);
-  //  }
   else{ // Avanzando
     digitalWrite(leftMotorF, HIGH);
     digitalWrite(leftMotorB, LOW);
@@ -250,26 +243,61 @@ void loop() {
     digitalWrite(rightMotorB, LOW);
     analogWrite(rightMotorSpeed, velocidadR);
   }
+~~~
 
-    //digitalWrite(leftMotorF, HIGH);
-    //digitalWrite(leftMotorB, LOW);
-    //analogWrite(leftMotorSpeed, 100);
-    //digitalWrite(rightMotorF, HIGH);
-    //digitalWrite(rightMotorB, LOW);
-    //analogWrite(rightMotorSpeed, 100);
+# Agradecimientos y referencias
 
-  Serial.println("veloR ");
-    Serial.println(velocidadR);
-      Serial.println("veloI ");
-  Serial.println(velocidadI);
- Serial.println("state " );
-   Serial.println(estado);
-Serial.println("marcha ");
-  Serial.println(marcha);
-  if (Serial.available()){
-    char s = GetLine();
-    BT1.println(s);
-    Serial.println("---> " + s);
-  }
-}
+[circuitdigest.com "Esqueleto del programa"](http://circuitdigest.com/microcontroller-projects/bluetooth-controlled-robot-car-using-arduino)
 
+[Prometec.net "bluetooth"](http://www.prometec.net/bt-hc06/)
+
+[Electronilab.co "Motor Driver"](http://electronilab.co/tutoriales/tutorial-de-uso-driver-dual-l298n-para-motores-dc-y-paso-a-paso-con-arduino/)
+
+[Adolfo Sanz De Diego "Reveal Presentation"](https://github.com/asanzdiego/markdownslides)
+
+# Preguntas
+
+# En producción. No todo fue tan feliz, pero nos reimos mucho.
+
+## Gravedad que es eso
+---
+
+> Huele a quemado. —Luis Ángel García
+
+---
+---
+
+> Adri: ¡Arranca!
+
+> ...
+
+> Adri: ¿Estás dándole?
+
+> Luis: Sí.
+
+---
+
+---
+
+> Adri: ¡GIRA QUE TE ESCOÑAS!
+> Luis: ¡NO GIRA!
+> Adri: ¡PUES PÁRALO!
+> Luis: ¡HE PERDIDO LA CONEXIÓN!
+> Mireya: Eso es porque quemasteis el bluetooth
+> Luis: ¡QUE NO HEMOS QUEMADO EL BLUETOOTH!
+> Coche: PLOGF-rggggggggggggg
+
+---
+
+---
+
+> Adri: ¡GIRA QUE TE ESCOÑAS!
+> Luis: ¡NO GIRA!
+> Adri: ¿TIENE CONEXIÓN?
+> Luis: ¡SÍ!
+> Adri: ¡OTRA VEZ SE HA CORROMPIDO EL BUFFER, REINICIALO!
+> Mireya: Eso es porque quemasteis el bluetooth
+Adri: ¡QUE ESO NO TIENE NADA QUE VER!
+> Coche: PLOGF-rgggggggggggggOsOdioggggggg
+
+---
