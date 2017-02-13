@@ -11,6 +11,7 @@ void setup()  {
   pinMode(ledPin, OUTPUT);      
   // initialize the pushbutton pin as an input:
   pinMode(buttonPin, INPUT);
+  Serial.begin(9600);
 }
 
 int turnOn(){  // Turn on LED like the mode says
@@ -22,9 +23,12 @@ int turnOn(){  // Turn on LED like the mode says
     case 2:  // blink
       if (on == 0){  // is off
         on = 1;  // next state is on
+        delay(500);
         return 255;  // turn on
+        
       }else{  // is on
         on = 0;  // next state is off
+                delay(500);
         return 0; // turn off
       }  
   }  
@@ -58,7 +62,8 @@ void loop()  {
   }else{
     value = 0;
   }
-
+  Serial.println("value " + value);
+    Serial.println("mode " + mode);
    analogWrite(ledPin, value); 
    
 }

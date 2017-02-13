@@ -1,4 +1,0 @@
-#Lenguaje
-##Entorno
-##Funciones
-##Serial
