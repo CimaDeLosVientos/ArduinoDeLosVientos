@@ -35,7 +35,7 @@ Competencias:
 
 # Ejercicio 5. Leds alternos con incremento
 
-Desarrolla un programa que alterne la señal entre dos leds y el tiempo que pase entre cambio sea el doble que en el ciclo anterior.
+Desarrolla un programa que alterne la señal entre dos leds y el tiempo que pase entre cambio sea 100 milisegundos que en el ciclo anterior.
 
 Competencias:
 
@@ -44,7 +44,7 @@ Competencias:
 
 # Ejercicio 6. PUM-ZAP
 
-Utilizando dos leds y una variable que se incremente en una unidad cada ciclo, desarrolla un programa que encienda el led 1 cuando la variable sea par, y el led 2 cuando la variable sea multiplo de 3.
+Utilizando dos leds y una variable que se incremente en una unidad cada ciclo, desarrolla un programa que encienda el led 1 cuando la variable sea par, y el led 2 cuando la variable sea múltiplo de 3.
 
 NOTA: Hay números que no son múltiplos ni de dos ni de tres, por lo que no se encenderá ninguno, y números que son múltiplos de dos y tres, y por tanto se encenderán ambos leds.
 
