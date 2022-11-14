@@ -108,9 +108,9 @@ Competencias:
 - Escritura Analógica
 - Control de flujo
 
-# Ejercicio 13. Semáforo con un led RGB
+# Ejercicio 13. Colores secundarios con RGB
 
-Utilizando un *led rgb*, desarrolla un programa similar al del ejercicio dos en el que debe empezar en verde, mantenerse 4 segundos, cambiar a amarillo durante dos segundos, y luego pasar a rojo durante 4 segundos.
+Utilizando un *led rgb*, desarrolla un programa que recorra los colores secundarios cambiando cada 2 segundos.
 
 Competencias:
 
@@ -129,7 +129,7 @@ Competencias:
 
 # Ejercicio 15. Fade Discreto con Array
 
-Utilizando un led desarrolla un programa que lo encienda y lo apaga gradualmente utilizando 5 valores fijados y almacenados en un *array*.
+Utilizando un led RGB desarrolla un programa que lo encienda y lo apaga gradualmente utilizando 5 valores fijados y almacenados en un *array*.
 
 Competencias:
 
