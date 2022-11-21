@@ -4,7 +4,6 @@ const int ledPinB = 6;
 
 // variables
 const int timeLight = 500;
-int counter;
 const int timesBeforeChange = 3;
 
 

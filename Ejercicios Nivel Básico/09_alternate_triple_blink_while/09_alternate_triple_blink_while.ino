@@ -14,20 +14,22 @@ void setup() {
 }
 
 void loop() {
-
-  for (int counter = 0; counter < timesBeforeChange; counter++){
+  counter = 0;
+  while (counter < timesBeforeChange){
     digitalWrite(ledPinA, HIGH);
     delay(timeLight);
     digitalWrite(ledPinA, LOW);
     delay(timeLight);
+    counter++;
   }
 
-
-  for (int counter = 0; counter < timesBeforeChange; counter++){
+  counter = 0;
+  while (counter < timesBeforeChange){
     digitalWrite(ledPinB, HIGH);
     delay(timeLight);
     digitalWrite(ledPinB, LOW);
     delay(timeLight);
+    counter++
   }
 
   counter = 0; // reset
