@@ -3,27 +3,23 @@ const int led = 9;
 
 // variables
 const int timeBetweenLeds = 2000;
+int counter = 0;
+int size = 5;
 
-int ledRedValue;
-int ledGreenvalue;
-int ledBlueValue;
+int ledValue[] = {0, 100, 150, 200, 255};
 
 
 void setup() {
-  pinMode(ledRed, OUTPUT);
-  pinMode(ledGreen, OUTPUT);
-  pinMode(ledBlue, OUTPUT);
+  pinMode(led, OUTPUT);
+  Serial.begin(9600);
 }
 
 void loop() {
-  // set values
-  ledRedValue = random(0, 255);
-  ledGreenvalue = random(0, 255);
-  ledBlueValue = random(0, 255);
-
-  // write values  
-  analogWrite(ledRed, ledRedValue);
-  analogWrite(ledGreen, ledGreenvalue);
-  analogWrite(ledBlue, ledBlueValue);
+  // write values
+  analogWrite(led, ledValue[counter]);
   delay(timeBetweenLeds);
+
+  // update counter
+  counter = counter % size;
+  counter++;
 }
