@@ -1,5 +1,3 @@
-// https://create.arduino.cc/projecthub/aboda243/get-started-with-seven-segment-c73200
-
 // pins
 const int ledPinA = 5;
 const int ledPinB = 6;
