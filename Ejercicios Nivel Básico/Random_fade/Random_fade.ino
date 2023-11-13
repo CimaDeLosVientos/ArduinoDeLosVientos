@@ -5,7 +5,7 @@ const int ledBlue = 11;
 
 // variables
 const int timeBetweenLeds = 2000;
-const int timeBetweensteps = 30;
+const int timeBetweenSteps = 30;
 const int steps = 50;
 
 int ledRedValue;
@@ -30,8 +30,8 @@ void loop() {
     analogWrite(ledRed, (int)(ledRedValue*fadeValue/steps));
     analogWrite(ledGreen, (int)(ledGreenvalue*fadeValue/steps));
     analogWrite(ledBlue, (int)(ledBlueValue*fadeValue/steps));
-    // wait for timeBetweensteps milliseconds to see the dimming effect    
-    delay(timeBetweensteps);                            
+    // wait for timeBetweenSteps milliseconds to see the dimming effect    
+    delay(timeBetweenSteps);                            
   } 
   
   // fade out from max to min in increments of 2 porcent:
@@ -39,8 +39,8 @@ void loop() {
     analogWrite(ledRed, (int)(ledRedValue*fadeValue/steps));
     analogWrite(ledGreen, (int)(ledGreenvalue*fadeValue/steps));
     analogWrite(ledBlue, (int)(ledBlueValue*fadeValue/steps));
-    // wait for timeBetweensteps milliseconds to see the dimming effect    
-    delay(timeBetweensteps);                            
+    // wait for timeBetweenSteps milliseconds to see the dimming effect    
+    delay(timeBetweenSteps);                            
   } 
 
 }

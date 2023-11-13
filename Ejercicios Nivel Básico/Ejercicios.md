@@ -8,23 +8,7 @@ Competencias:
 
 - Escritura Digital
 
-# Ejercicio 2. Semáforo básico
-
-Desarrolla un programa con 3 leds de colores rojo, amarillo y verde que alternen al encenderse.
-Debe empezar en verde, mantenerse 4 segundos, cambiar a amarillo durante dos segundos, y luego pasar a rojo durante 4 segundos.
-
-Competencias:
-- Escritura Digital
-
-# Ejercicio 3. Cuenta atrás con 7 segmentos
-
-Desarrolla un programa que utilizando un conjunto de leds **7 segmentos** realice una cuenta regresiva del 9 al 0.
-
-Competencias:
-
-- Escritura Digital
-
-# Ejercicio 4. Blink a dos tiempos
+# Ejercicio 2. Blink a dos tiempos
 
 Desarrolla un programa en el que dos leds parpadeen pero uno lo haga al doble de frecuencia que el otro.
 
@@ -33,16 +17,56 @@ Competencias:
 - Escritura Digital
 - Control de secuencia
 
-# Ejercicio 5. Leds alternos con incremento
+# Ejercicio 3. Cuenta atrás con 7 segmentos
 
-Desarrolla un programa que alterne la señal entre dos leds y el tiempo que pase entre cambio sea 100 milisegundos que en el ciclo anterior.
+Desarrolla un programa que utilizando un conjunto de leds **7 segmentos** realice una cuenta regresiva del 9 al 0 utilizando variables para los pines.
 
 Competencias:
 
 - Escritura Digital
+- Lectura de variables
+
+# Ejercicio 4. Semáforo completo
+
+Desarrolla un programa con 3 leds de colores rojo, amarillo y verde, y 2 leds de colores rojo y verde que simulen el funcionamiento de un semáforo.
+
+Los 3 primeros leds representarán el semáforo de los coches y los otros dos el de los peatones.
+
+El de los coches debe empezar en rojo, mantenerse 4 segundos, cambiar a amarillo durante dos segundos, y luego pasar a verde durante 4 segundos.
+
+El de los peatones debe estar rojo mientras el de los coches esté rojo y amarillo y pasar a verde mientres el de los coches esté en rojo. Además, los últimos 2 segundos debe parpadear con cambios cada 200 milisegundos.
+
+En la segunda parte de este ejercicio todos los pines y tiempos deben ser variables.
+
+Competencias:
+
+- Escritura Digital
+- Control de secuencia
+- Lectura de variables
+- Operaciones aritméticas
+
+# Ejercicio 5. Leds alternos con incremento
+
+Desarrolla un programa que alterne la señal entre dos leds y el tiempo que pase entre cambio sea 100 milisegundos más que en el ciclo anterior.
+
+Competencias:
+
+- Escritura Digital
+- Lectura y escritura de variables
 - Operaciones Aritméticas
 
-# Ejercicio 6. PUM-ZAP
+# Ejercicio 6. Leds alternos con decremento y reset
+
+Desarrolla un programa que alterne la señal entre dos leds y el tiempo que pase entre cambio sea 100 milisegundos menos que en el ciclo anterior y que cuando el tiempo entre cambios sea 0 se reinicie.
+
+Competencias:
+
+- Escritura Digital
+- Lectura y escritura de variables
+- Operaciones Aritméticas
+- Sentencias condicionales
+
+# Ejercicio 6.5. PUM-ZAP
 
 Utilizando dos leds y una variable que se incremente en una unidad cada ciclo, desarrolla un programa que encienda el led 1 cuando la variable sea par, y el led 2 cuando la variable sea múltiplo de 3.
 
@@ -202,3 +226,43 @@ Competencias:
 - Control de flujo (avanzado mediante máquina de estados)
 - Secuencialidad (avanzado)
 
+# Ejercicio 21.5. Juego encender leds
+
+Utilizando 3 leds y 3 interruptores colocados paralelamente se debe implementar un juego que encienda aleatoriamente uno o dos de los leds. Después el usuario puede pulsar cualquiera de los 3 interruptores para cambiar el estado del led y los adyacentes. Cuando todos los leds estén encendidos el juego acaba y deja de funcionar la entrada de usuario.
+
+Competencias:
+
+- Escritura Digital
+- Lectura Digital
+- Control de variables
+- Secuencialidad (avanzado)
+
+# Ejercicio 22. Control de RGB con interruptores
+
+Utilizando un led RGB y 3 interruptores, implementa un programa que cada vez que se pulse el botón correspondiente a un led, este incremente en una cantidad su luminancia, en caso de sobre pasar el valor máximo, debe volver a empezar en 0.
+
+Competencias:
+
+- Escritura analógica
+- Lectura Digital
+- Control de variables
+
+# Ejercicio 22.1. Control de RGB con interruptores ampliado
+
+Partiendo del ejercicio anterior, añade un interruptor más que mientras que está pulsado si se pulsa el interruptor de un led, éste en vez de incrementar decrementa.
+
+Competencias:
+
+- Escritura analógica
+- Lectura Digital
+- Control de variables con if anidados
+
+# Ejercicio 23. 2 interruptores 1 led
+
+Utilizando 3 leds y 3 interruptores, implementa un programa al pulsar simultaneamente dos interruptores iluminen el led que no corresponde con esos interruptores.
+
+Competencias:
+
+- Escritura analógica
+- Lectura Digital
+- Control de variables con operaciones booleanas de adición.
